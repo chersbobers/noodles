@@ -46,9 +46,17 @@ check_requirements() {
 
     # Check architecture
     ARCH=$(uname -m)
-    if [ "$ARCH" != "x86_64" ]; then
-        print_error "Only x86_64 architecture is supported currently"
-    fi
+    case "$ARCH" in
+        "x86_64"|"amd64")
+            ARCH="amd64"
+            ;;
+        "aarch64"|"arm64")
+            ARCH="arm64"
+            ;;
+        *)
+            print_error "Unsupported architecture: $ARCH. Only x86_64/amd64 and arm64/aarch64 are supported."
+            ;;
+    esac
 
     # Check for required commands
     if ! command_exists curl; then
@@ -90,7 +98,7 @@ install_go() {
     print_step "Installing Go 1.24.4..."
     
     GO_VERSION="1.24.4"
-    GO_TARBALL="go${GO_VERSION}.linux-amd64.tar.gz"
+    GO_TARBALL="go${GO_VERSION}.linux-${ARCH}.tar.gz"
     GO_URL="https://go.dev/dl/${GO_TARBALL}"
     
     # Download Go
@@ -123,7 +131,7 @@ install_noodles() {
     cd noodles
     
     # Build Noodles
-    /usr/local/go/bin/go build -o noodles || print_error "Failed to build Noodles"
+    GOARCH=$ARCH /usr/local/go/bin/go build -o noodles || print_error "Failed to build Noodles"
     
     # Install binary
     mv noodles /usr/local/bin/ || print_error "Failed to install Noodles binary"

@@ -1,6 +1,6 @@
 # Noodles 🍜
 
-A fast and simple MPR (Makedeb Package Repository) helper written in Go. Inspired by yay but for MPR instead of AUR.
+A quick 'n' simple mpr helper for the best
 
 ## Quick Install
 

@@ -15,7 +15,7 @@ func main() {
 
 	command := os.Args[1]
 
-	if command == "slurp" {
+	if command == "install" {
 		if len(os.Args) < 3 {
 			fmt.Println("Please specify a package name to install")
 			os.Exit(1)

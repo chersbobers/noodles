@@ -67,7 +67,7 @@ func installPackage(packageName string) error {
 	return nil
 }
 
-func execCommand(name string, args ...string) *exec.Command {
+func execCommand(name string, args ...string) *exec.Cmd {
 	cmd := exec.Command(name, args...)
 	cmd.Env = os.Environ()
 	return cmd
